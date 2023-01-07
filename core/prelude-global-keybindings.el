@@ -78,7 +78,7 @@
 (global-set-key (kbd "M-Z") 'zop-to-char)
 
 ;; kill lines backward
-(global-set-key (kbd "C-<backspace>") 'crux-kill-line-backwards)
+;(global-set-key (kbd "C-<backspace>") 'crux-kill-line-backwards)
 
 (global-set-key [remap kill-whole-line] 'crux-kill-whole-line)
 
