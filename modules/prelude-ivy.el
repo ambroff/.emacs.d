@@ -32,7 +32,7 @@
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Code:
-;(prelude-require-packages '(ivy swiper counsel))
+(prelude-require-packages '(ivy counsel))
 
 ;;; Ivy
 ;;
