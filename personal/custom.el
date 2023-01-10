@@ -65,7 +65,7 @@
 ;;   :hook (python-mode . lsp)
 ;;   :commands lsp
 ;;   :config
-;;   (setq lsp-clients-clangd-args '("-j=12" "-background-index" "-log=error")))
+;;   (setq lsp-clients-clangd-args '("-j=3" "-background-index" "-log=error")))
 
 ;; (use-package lsp-ui :commands lsp-ui-mode)
 ;; (use-package company-lsp :commands company-lsp)
@@ -82,7 +82,7 @@
 (ido-mode t)
 (show-paren-mode t)
 (setq global-hl-line-mode nil)
-(setq scroll-bar-mode nil)
+(scroll-bar-mode -1)
 
 (global-set-key (kbd "<f5>") 'compile)
 
