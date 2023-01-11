@@ -72,7 +72,8 @@
   :hook (c++-mode . lsp)
   :hook (c-mode . lsp)
   :hook (python-mode . lsp)
-  :bind (("C-q" . lsp-ui-peek-find-definitions))
+  :bind (("C-q" . lsp-ui-peek-find-definitions)
+         ("M-\\" . lsp-find-references))
   :commands lsp
   :config
   (setq lsp-clients-clangd-args '("-j=3" "-background-index" "-log=error")))
@@ -80,21 +81,11 @@
 (use-package lsp-ui :commands lsp-ui-mode)
 (use-package company-lsp :commands company-lsp)
 
-(eval-after-load "c++-mode"
-  '(define-key c-mode-base-map (kbd "M-/")
-     (function lsp-find-references)))
-(require 'cc-mode)
-(define-key c-mode-base-map (kbd "M-\\")
-  (function lsp-find-references))
-
-
 (company-mode t)
 (ido-mode t)
 (show-paren-mode t)
 (setq global-hl-line-mode nil)
 (scroll-bar-mode -1)
-
-;(global-set-key (kbd "<f5>") 'compile)
 
 (use-package treemacs
   :ensure t
