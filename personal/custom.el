@@ -59,6 +59,15 @@
 (eval-after-load 'company
   '(add-to-list 'company-backends 'company-lsp))
 
+;; Emacs 29 and later seem to have use-package with :bind built in. For earlier
+;; releases install it this way.
+(unless (package-installed-p 'use-package)
+  (progn
+    (package-install 'use-package)
+    (unless (package-installed-p 'bind-key)
+      (package-install 'bind-key))))
+
+
 (use-package lsp-mode
   :hook (c++-mode . lsp)
   :hook (c-mode . lsp)
