@@ -46,6 +46,9 @@
  '(lsp-face-highlight-read ((t (:inherit highlight :background "black" :foreground "white" :box nil :underline t))))
  '(region ((t (:background "blue" :foreground "white")))))
 
+;; (add-to-list 'default-frame-alist '(font . "jetbrains-mono"))
+;; (set-face-attribute 'default t :font "jetbrains-mono")
+
 (set-variable 'projectile-globally-ignored-directories '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" ".clangd"))
 
 ;; C++ dev setup
@@ -67,13 +70,18 @@
     (unless (package-installed-p 'bind-key)
       (package-install 'bind-key))))
 
-
+;; TODO: Use flymake-show-diagnostics-buffer
+;; TODO: Set up lsp-treemacs
+;; TODO: set up lsp-ivy for find symbol by name
 (use-package lsp-mode
+  :init
+  (setq lsp-keymap-prefix "C-c l")
   :hook (c++-mode . lsp)
   :hook (c-mode . lsp)
   :hook (python-mode . lsp)
   :bind (("C-q" . lsp-ui-peek-find-definitions)
-         ("M-\\" . lsp-find-references))
+         ("M-\\" . lsp-find-references)
+         ("M-." . lsp-find-definition))
   :commands lsp
   :config
   (setq lsp-clients-clangd-args '("-j=3" "-background-index" "-log=error")))
