@@ -49,6 +49,9 @@
 ;; (add-to-list 'default-frame-alist '(font . "jetbrains-mono"))
 ;; (set-face-attribute 'default t :font "jetbrains-mono")
 
+;; TODO: Set C-shift-f to projectile-find
+;; TODO: Set M-shift-g to interactive go to symbol definition
+
 (set-variable 'projectile-globally-ignored-directories '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" ".clangd"))
 
 ;; C++ dev setup
