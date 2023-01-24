@@ -49,9 +49,6 @@
 ;; (add-to-list 'default-frame-alist '(font . "jetbrains-mono"))
 ;; (set-face-attribute 'default t :font "jetbrains-mono")
 
-;; TODO: Set C-shift-f to projectile-find
-;; TODO: Set M-shift-g to interactive go to symbol definition
-
 (set-variable 'projectile-globally-ignored-directories '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" ".clangd"))
 
 ;; C++ dev setup
@@ -89,7 +86,10 @@
   :config
   (setq lsp-clients-clangd-args '("-j=3" "-background-index" "-log=error")))
 
-(use-package lsp-ui :commands lsp-ui-mode)
+(use-package lsp-ui
+  :bind (("M-G" . lsp-ui-find-workspace-symbol)
+         ("C-S-f" . projectile-find))
+  :commands lsp-ui-mode)
 (use-package company-lsp :commands company-lsp)
 
 (company-mode t)
