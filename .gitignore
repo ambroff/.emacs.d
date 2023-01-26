@@ -31,3 +31,4 @@ var/
 .lsp-session*
 gotools/
 eln-cache/
+/.dap-breakpoints/
