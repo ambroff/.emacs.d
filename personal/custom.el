@@ -91,7 +91,7 @@
          ("M-." . lsp-find-definition))
   :commands lsp
   :config
-  (setq lsp-clients-clangd-args '("-j=3" "-background-index" "-log=error")))
+  (setq lsp-clients-clangd-args '("-j=12" "-background-index" "-log=error")))
 
 (use-package lsp-ui
   :bind (("M-G" . lsp-ui-find-workspace-symbol)
@@ -298,3 +298,8 @@
                 treemacs-mode-hook
                 eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+(use-package org-bullets
+  :hook (org-mode . org-bullets-mode))
+
+(add-hook 'org-mode (lambda () (org-indent-mode t)))
