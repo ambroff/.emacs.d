@@ -15,7 +15,7 @@
  '(nrepl-message-colors
    '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(package-selected-packages
-   '(dap-mode org-roam treemacs-magit treemacs-icons-dired treemacs-projectile treemacs gradle-mode json-mode dockerfile-mode scala-mode afternoon-theme csv-mode smart-tabs-mode lsp-treemacs lsp-python-ms yasnippet-lean yaml-mode use-package lsp-ui yasnippet company-lsp lsp-mode cmake-mode exec-path-from-shell zop-to-char zenburn-theme which-key volatile-highlights undo-tree super-save smartrep smartparens operate-on-number move-text magit projectile imenu-anywhere hl-todo guru-mode gitignore-mode gitconfig-mode git-timemachine gist flycheck expand-region epl editorconfig easy-kill diminish diff-hl discover-my-major crux browse-kill-ring beacon anzu ace-window))
+   '(dap-mode org-roam treemacs-magit treemacs-icons-dired treemacs-projectile treemacs gradle-mode json-mode dockerfile-mode scala-mode afternoon-theme csv-mode smart-tabs-mode lsp-treemacs lsp-python-ms yasnippet-lean yaml-mode use-package lsp-ui yasnippet company-lsp lsp-mode cmake-mode exec-path-from-shell zop-to-char zenburn-theme which-key volatile-highlights undo-tree super-save smartrep smartparens operate-on-number move-text magit projectile imenu-anywhere hl-todo guru-mode gitignore-mode gitconfig-mode git-timemachine gist flycheck expand-region epl editorconfig easy-kill diminish diff-hl discover-my-major crux browse-kill-ring beacon anzu ace-window cmake-mode groovy-mode))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(prelude-whitespace nil)
  '(vc-annotate-background "#2B2B2B")
@@ -283,6 +283,11 @@
  (expand-file-name "~/code/linux")
  'linux-kernel)
 
+;; TODO stuff for Northguard. Mainly I want to disable whitespace-mode
+;; (dir-locals-set-directory-class
+;;  (expand-file-name "~/code/cpp/Northguard")
+;;  'northguard)
+
 (use-package org-roam
   :ensure t
   :custom (org-roam-directory "~/Notes")
@@ -303,3 +308,6 @@
   :hook (org-mode . org-bullets-mode))
 
 (add-hook 'org-mode (lambda () (org-indent-mode t)))
+
+;; TODO: When editing .org or .md files, disable whitespace-mode, enable visual-line-mode
+;; TODO: Tell whitespace-mode to enforce line length depending on which project I'm working on. 120 for work. 80 for Haiku, etc.

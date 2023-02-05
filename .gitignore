@@ -32,3 +32,4 @@ var/
 gotools/
 eln-cache/
 /.dap-breakpoints/
+/org-roam.db
