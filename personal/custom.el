@@ -220,6 +220,7 @@
 ;;    :keymaps 'lsp-mode-map
 ;;    :prefix lsp-keymap-prefix
 ;;    "d" '(dap-hydra t :wk "debugger")))
+(require 'dap-gdb-lldb)
 
 (use-package treemacs-projectile
   :after (treemacs projectile)
