@@ -221,6 +221,7 @@
 ;;    :prefix lsp-keymap-prefix
 ;;    "d" '(dap-hydra t :wk "debugger")))
 (require 'dap-gdb-lldb)
+(require 'dap-lldb)
 
 (use-package treemacs-projectile
   :after (treemacs projectile)
