@@ -15,7 +15,7 @@
  '(nrepl-message-colors
    '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(package-selected-packages
-   '(reformatter dap-mode org-roam treemacs-magit treemacs-icons-dired treemacs-projectile treemacs gradle-mode json-mode dockerfile-mode scala-mode afternoon-theme csv-mode smart-tabs-mode lsp-treemacs lsp-python-ms yasnippet-lean yaml-mode use-package lsp-ui yasnippet company-lsp lsp-mode cmake-mode exec-path-from-shell zop-to-char zenburn-theme which-key volatile-highlights undo-tree super-save smartrep smartparens operate-on-number move-text magit projectile imenu-anywhere hl-todo guru-mode gitignore-mode gitconfig-mode git-timemachine gist flycheck expand-region epl editorconfig easy-kill diminish diff-hl discover-my-major crux browse-kill-ring beacon anzu ace-window cmake-mode groovy-mode))
+   '(nix-mode reformatter org-roam treemacs-magit treemacs-icons-dired treemacs-projectile treemacs gradle-mode json-mode dockerfile-mode scala-mode afternoon-theme csv-mode smart-tabs-mode lsp-treemacs lsp-python-ms yasnippet-lean yaml-mode use-package lsp-ui yasnippet company-lsp lsp-mode cmake-mode exec-path-from-shell zop-to-char zenburn-theme which-key volatile-highlights undo-tree super-save smartrep smartparens operate-on-number move-text magit projectile imenu-anywhere hl-todo guru-mode gitignore-mode gitconfig-mode git-timemachine gist flycheck expand-region epl editorconfig easy-kill diminish diff-hl discover-my-major crux browse-kill-ring beacon anzu ace-window cmake-mode groovy-mode))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(prelude-whitespace nil)
  '(vc-annotate-background "#2B2B2B")
@@ -200,27 +200,24 @@
 (use-package lsp-ivy
   :after lsp)
 
+;; FIXME: Find path for lldb-vscode-11 or lldb-vscode
 (use-package dap-mode
-  :ensure t)
-;; (use-package dap-mode
-;;   :ensure t
-;;   ;; Uncomment the config below if you want all UI panes to be hidden by default!
-;;   ;; :custom
-;;   ;; (lsp-enable-dap-auto-configure nil)
-;;   ;; :config
-;;   ;; (dap-ui-mode 1)
-;;   ;:commands dap-debug
-;;   ;; :config
-;;   ;; ;; Set up Node debugging
-;;   ;; (require 'dap-node)
-;;   ;; (dap-node-setup) ;; Automatically installs Node debug adapter if needed
-
-;;   ;; Bind `C-c l d` to `dap-hydra` for easy access
-;;   (general-define-key
-;;    :keymaps 'lsp-mode-map
-;;    :prefix lsp-keymap-prefix
-;;    "d" '(dap-hydra t :wk "debugger")))
-(require 'dap-gdb-lldb)
+  :defer
+  :custom
+  (dap-auto-configure-mode t "Automatically configure dap.")
+  :config
+  (require 'dap-lldb)
+  (require 'dap-cpptools)
+  (setq dap-lldb-debug-program '("lldb-vscode-11"))
+  (setq dap-lldb-debugged-program-function (lambda () (read-file-name "What To Debug?")))
+  (dap-register-debug-template  
+   "C++ LLDB"                   
+   (list :type "lldb-vscode"   
+         :cwd nil
+         :args nil
+         :request "launch"
+         :program nil))
+  :after lsp-mode)
 (require 'dap-lldb)
 
 (use-package treemacs-projectile
@@ -320,16 +317,17 @@
 ;; TODO: When editing .org or .md files, disable whitespace-mode, enable visual-line-mode
 ;; TODO: Tell whitespace-mode to enforce line length depending on which project I'm working on. 120 for work. 80 for Haiku, etc.
 
-(use-package reformatter
-  :ensure t)
+;; TODO: Only enable these if nix is available
+;; (use-package reformatter
+;;   :ensure t)
 
-(use-package lsp-nix
-  :ensure lsp-mode
-  :after (lsp-mode)
-  :demand t
-  :custom
-  (lsp-nix-nil-formatter ["nixpkgs-fmt"]))
+;; (use-package lsp-nix
+;;   :ensure lsp-mode
+;;   :after (lsp-mode)
+;;   :demand t
+;;   :custom
+;;   (lsp-nix-nil-formatter ["nixpkgs-fmt"]))
 
-(use-package nix-mode
-  :hook (nix-mode . lsp-deferred)
-  :ensure t)
+;; (use-package nix-mode
+;;   :hook (nix-mode . lsp-deferred)
+;;   :ensure t)
