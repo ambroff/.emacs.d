@@ -47,6 +47,10 @@
  '(lsp-face-highlight-read ((t (:inherit highlight :background "black" :foreground "white" :box nil :underline t))))
  '(region ((t (:background "blue" :foreground "white")))))
 
+;; Required for Emacs < 29.x, otherwise treemacs breaks with something about invalid image type svg
+(unless (member 'svg image-types)
+  (add-to-list 'image-types 'svg))
+
 ;; Make it easier to change the size of a frame.
 ;; See https://www.emacswiki.org/emacs/WindowResize
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
