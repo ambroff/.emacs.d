@@ -205,24 +205,24 @@
   :after lsp)
 
 ;; FIXME: Find path for lldb-vscode-11 or lldb-vscode
-(use-package dap-mode
-  :defer
-  :custom
-  (dap-auto-configure-mode t "Automatically configure dap.")
-  :config
-  (require 'dap-lldb)
-  (require 'dap-cpptools)
-  (setq dap-lldb-debug-program '("lldb-vscode-11"))
-  (setq dap-lldb-debugged-program-function (lambda () (read-file-name "What To Debug?")))
-  (dap-register-debug-template  
-   "C++ LLDB"                   
-   (list :type "lldb-vscode"   
-         :cwd nil
-         :args nil
-         :request "launch"
-         :program nil))
-  :after lsp-mode)
-(require 'dap-lldb)
+;; (use-package dap-mode
+;;   :defer
+;;   :custom
+;;   (dap-auto-configure-mode t "Automatically configure dap.")
+;;   :config
+;;   (require 'dap-lldb)
+;;   (require 'dap-cpptools)
+;;   (setq dap-lldb-debug-program '("lldb-vscode-11"))
+;;   (setq dap-lldb-debugged-program-function (lambda () (read-file-name "What To Debug?")))
+;;   (dap-register-debug-template  
+;;    "C++ LLDB"                   
+;;    (list :type "lldb-vscode"   
+;;          :cwd nil
+;;          :args nil
+;;          :request "launch"
+;;          :program nil))
+;;   :after lsp-mode)
+;; (require 'dap-lldb)
 
 (use-package treemacs-projectile
   :after (treemacs projectile)
