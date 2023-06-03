@@ -322,16 +322,16 @@
 ;; TODO: Tell whitespace-mode to enforce line length depending on which project I'm working on. 120 for work. 80 for Haiku, etc.
 
 ;; TODO: Only enable these if nix is available
-;; (use-package reformatter
-;;   :ensure t)
+(use-package reformatter
+  :ensure t)
 
-;; (use-package lsp-nix
-;;   :ensure lsp-mode
-;;   :after (lsp-mode)
-;;   :demand t
-;;   :custom
-;;   (lsp-nix-nil-formatter ["nixpkgs-fmt"]))
+(use-package lsp-nix
+  :ensure lsp-mode
+  :after (lsp-mode)
+  :demand t
+  :custom
+  (lsp-nix-nil-formatter ["nixpkgs-fmt"]))
 
-;; (use-package nix-mode
-;;   :hook (nix-mode . lsp-deferred)
-;;   :ensure t)
+(use-package nix-mode
+  :hook (nix-mode . lsp-deferred)
+  :ensure t)
