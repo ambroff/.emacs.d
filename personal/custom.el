@@ -313,8 +313,10 @@
                 eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
+;; (use-package org-bullets
+;;   :hook (org-mode . org-bullets-mode))
 (use-package org-bullets
-  :hook (org-mode . org-bullets-mode))
+  :ensure t)
 
 (add-hook 'org-mode (lambda () (org-indent-mode t)))
 
