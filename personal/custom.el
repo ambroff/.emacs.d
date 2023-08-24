@@ -339,6 +339,12 @@
   :custom
   (lsp-nix-nil-formatter ["nixpkgs-fmt"]))
 
-(use-package nix-mode
-  :hook (nix-mode . lsp-deferred)
+;(use-package nix-mode
+;  :hook (nix-mode . lsp-deferred)
+
+;; (use-package nix-mode
+;;   :hook (nix-mode . lsp-deferred)
+;;   :ensure t)
+
+(use-package flatbuffers-mode
   :ensure t)
