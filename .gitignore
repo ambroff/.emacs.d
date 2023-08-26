@@ -35,3 +35,6 @@ eln-cache/
 /org-roam.db
 /.dap-breakpoints
 /.org-id-locations
+/eclipse.jdt.ls/
+/workspace/
+/ido.last

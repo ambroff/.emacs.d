@@ -90,6 +90,7 @@
   :hook (c++-mode . lsp)
   :hook (c-mode . lsp)
   :hook (python-mode . lsp)
+  :hook (java-mode . lsp)
   :bind (("C-q" . lsp-ui-peek-find-definitions)
          ("M-\\" . lsp-find-references)
          ("M-." . lsp-find-definition))
@@ -347,4 +348,7 @@
 ;;   :ensure t)
 
 (use-package flatbuffers-mode
+  :ensure t)
+
+(use-package lsp-java
   :ensure t)
