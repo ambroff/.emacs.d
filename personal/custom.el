@@ -48,8 +48,8 @@
  '(region ((t (:background "blue" :foreground "white")))))
 
 ;; Required for Emacs < 29.x, otherwise treemacs breaks with something about invalid image type svg
-(unless (member 'svg image-types)
-  (add-to-list 'image-types 'svg))
+(unless (and (not (eq (boundp 'image-types) nil)) (member 'svg image-types)
+             (add-to-list 'image-types 'svg)))
 
 ;; Make it easier to change the size of a frame.
 ;; See https://www.emacswiki.org/emacs/WindowResize
@@ -108,7 +108,9 @@
 (ido-mode t)
 (show-paren-mode t)
 (setq global-hl-line-mode nil)
-(scroll-bar-mode -1)
+
+(if (not (eq nil (boundp 'scroll-bar-mode)))
+    (scroll-bar-mode -1))
 
 (use-package treemacs
   :ensure t
