@@ -354,3 +354,30 @@
 
 (use-package lsp-java
   :ensure t)
+
+;;
+;; Email setup
+;;
+
+;; Generated index like
+;; mu init --maildir=$HOME/mail --my-address=kyle@ambroffkao.com --my-address=kyle@ambroffkao.com --my-address=family@ambroffkao.com --my-address=kyle@buttmail.me --my-address=kyle@2e.rip --my-address=ambroff@fastmail.com --my-address=kyle@segv.zip
+(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
+(setq mu4e-get-mail-command "mbsync -a")
+(require 'mu4e)
+(setq mu4e-sent-folder "/Sent")
+(setq mu4e-refile-folder "/Archive")
+(setq mu4e-trash-folder "/Trash")
+(setq mu4e-drafts-folder "/Drafts")
+
+;; (use-package mu4easy
+;;   :ensure t
+;;   :bind ("C-c u" . mu4e)
+;;   :config (mu4easy-mode)
+;;   :custom
+;;   (mu4easy-contexts '((mu4easy-context
+;;                        :c-name  "Mail"
+;;                        :maildir (expand-file-name "~/mail")
+;;                        :mail    "kyle@ambroffkao.com"
+;;                        :smtp    "smtp.gmail.com"
+;;                        :sent-action 'sent))))
+
