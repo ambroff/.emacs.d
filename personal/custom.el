@@ -388,10 +388,14 @@
  ((eq system-type 'berkeley-unix)
   (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e"))
 
+ ((eq system-type 'gnu/linux)
+  (add-to-list 'load-path "/usr/share/emacs/site-lisp/elpa-src/mu4e-1.8.14"))
+
  (t
   (message "Need to install mu4e on this platform")))
 (setq mu4e-get-mail-command "mbsync -a")
 (require 'mu4e)
+(setq mu4e-change-filenames-when-moving t)
 (setq mu4e-sent-folder "/Sent")
 (setq mu4e-refile-folder "/Archive")
 (setq mu4e-trash-folder "/Trash")
