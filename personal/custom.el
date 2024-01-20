@@ -82,6 +82,13 @@
     (unless (package-installed-p 'bind-key)
       (package-install 'bind-key))))
 
+(cond
+ ((eq system-type 'berkeley-unix)
+  (setq lsp-clients-clangd-executable "clangd17"))
+ (t
+  (setq lsp-clients-clangd-executable "clangd")))
+
+
 ;; TODO: Use flymake-show-diagnostics-buffer
 ;; TODO: set up lsp-ivy for find symbol by name
 (use-package lsp-mode
@@ -289,6 +296,22 @@
  (expand-file-name "~/code/linux")
  'linux-kernel)
 
+;; TODO: Figure out a way to invoke this function every time a C file is opened in /usr/src
+(defun bsd ()
+  (interactive)
+  (c-set-style "bsd")
+  (setq indent-tabs-mode t)
+  ;; Use C-c C-s at points of source code so see which
+  ;; c-set-offset is in effect for this situation
+  (c-set-offset 'defun-block-intro 8)
+  (c-set-offset 'statement-block-intro 8)
+  (c-set-offset 'statement-case-intro 8)
+  (c-set-offset 'substatement-open 4)
+  (c-set-offset 'substatement 8)
+  (c-set-offset 'arglist-cont-nonempty 4)
+  (c-set-offset 'inclass 8)
+  (c-set-offset 'knr-argdecl-intro 8))
+
 ;; TODO stuff for Northguard. Mainly I want to disable whitespace-mode
 ;; (dir-locals-set-directory-class
 ;;  (expand-file-name "~/code/cpp/Northguard")
@@ -360,8 +383,13 @@
 ;;
 
 ;; Generated index like
-;; mu init --maildir=$HOME/mail --my-address=kyle@ambroffkao.com --my-address=kyle@ambroffkao.com --my-address=family@ambroffkao.com --my-address=kyle@buttmail.me --my-address=kyle@2e.rip --my-address=ambroff@fastmail.com --my-address=kyle@segv.zip
-(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
+;; mu init --maildir=$HOME/mail --my-address=kyle@ambroffkao.com --my-address=kyle@ambroff.com --my-address=family@ambroffkao.com --my-address=kyle@buttmail.me --my-address=kyle@2e.rip --my-address=ambroff@fastmail.com --my-address=kyle@segv.zip --my-address=kyle@wrk
+(cond
+ ((eq system-type 'berkeley-unix)
+  (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e"))
+
+ (t
+  (message "Need to install mu4e on this platform")))
 (setq mu4e-get-mail-command "mbsync -a")
 (require 'mu4e)
 (setq mu4e-sent-folder "/Sent")
@@ -380,4 +408,3 @@
 ;;                        :mail    "kyle@ambroffkao.com"
 ;;                        :smtp    "smtp.gmail.com"
 ;;                        :sent-action 'sent))))
-
