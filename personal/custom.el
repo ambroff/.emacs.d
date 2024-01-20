@@ -82,6 +82,10 @@
     (unless (package-installed-p 'bind-key)
       (package-install 'bind-key))))
 
+;; Install meson-mode
+(use-package meson-mode
+  :ensure t)
+
 (cond
  ((eq system-type 'berkeley-unix)
   (setq lsp-clients-clangd-executable "clangd17"))
