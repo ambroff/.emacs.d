@@ -415,7 +415,9 @@
       (progn
         (add-to-list 'load-path copilot-code-dir)
         (require 'copilot)
-        (add-hook 'prog-mode 'copilot-mode))))
+        (add-hook 'prog-mode 'copilot-mode)
+        (add-to-list 'copilot-major-mode-alist '("c-mode" . "c++-mode"))
+        (define-key copilot-completion-map (kbd "M-RET") 'copilot-accept-completion))))
 
 ;;
 ;; Some kinda incomplete notes about marginalia and embark setup. Stephan suggested this but I'm not sure I want to use it yet
