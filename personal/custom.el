@@ -15,7 +15,7 @@
  '(nrepl-message-colors
    '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(package-selected-packages
-   '(nix-mode reformatter org-roam treemacs-magit treemacs-icons-dired treemacs-projectile treemacs gradle-mode json-mode dockerfile-mode scala-mode afternoon-theme csv-mode smart-tabs-mode lsp-treemacs lsp-python-ms yasnippet-lean yaml-mode use-package lsp-ui yasnippet company-lsp lsp-mode cmake-mode exec-path-from-shell zop-to-char zenburn-theme which-key volatile-highlights undo-tree super-save smartrep smartparens operate-on-number move-text magit projectile imenu-anywhere hl-todo guru-mode gitignore-mode gitconfig-mode git-timemachine gist flycheck expand-region epl editorconfig easy-kill diminish diff-hl discover-my-major crux browse-kill-ring beacon anzu ace-window cmake-mode groovy-mode))
+   '(jsonrpc json-rpc embark-consult embark marginalia lsp-java flatbuffers-mode org-bullets nix-mode reformatter org-roam treemacs-magit treemacs-icons-dired treemacs-projectile treemacs gradle-mode json-mode dockerfile-mode scala-mode afternoon-theme csv-mode smart-tabs-mode lsp-treemacs lsp-python-ms yasnippet-lean yaml-mode use-package lsp-ui yasnippet company-lsp lsp-mode cmake-mode exec-path-from-shell zop-to-char zenburn-theme which-key volatile-highlights undo-tree super-save smartrep smartparens operate-on-number move-text magit projectile imenu-anywhere hl-todo guru-mode gitignore-mode gitconfig-mode git-timemachine gist flycheck expand-region epl editorconfig easy-kill diminish diff-hl discover-my-major crux browse-kill-ring beacon anzu ace-window cmake-mode groovy-mode))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(prelude-whitespace nil)
  '(vc-annotate-background "#2B2B2B")
@@ -352,8 +352,12 @@
 ;; also use visual-line-mode
 ;; also use org-indent-mode
 
+(add-hook 'org-mode (lambda ()
+                      (org-indent-mode t)
+                      (visual-line-mode t)))
 
-(add-hook 'org-mode (lambda () (org-indent-mode t)))
+(add-hook 'text-mode 'abbrev-mode)
+(add-hook 'prog-mode 'abbrev-mode)
 
 ;; TODO: When editing .org or .md files, disable whitespace-mode, enable visual-line-mode
 ;; TODO: Tell whitespace-mode to enforce line length depending on which project I'm working on. 120 for work. 80 for Haiku, etc.
@@ -405,14 +409,55 @@
 (setq mu4e-trash-folder "/Trash")
 (setq mu4e-drafts-folder "/Drafts")
 
-;; (use-package mu4easy
+;; Use copilot if it is available in the vendor directory
+(let ((copilot-code-dir (concat (file-name-as-directory prelude-vendor-dir) "copilot.el")))
+  (if (file-directory-p copilot-code-dir)
+      (progn
+        (add-to-list 'load-path copilot-code-dir)
+        (require 'copilot)
+        (add-hook 'prog-mode 'copilot-mode))))
+
+;;
+;; Some kinda incomplete notes about marginalia and embark setup. Stephan suggested this but I'm not sure I want to use it yet
+;;
+
+;; (use-package marginalia
 ;;   :ensure t
-;;   :bind ("C-c u" . mu4e)
-;;   :config (mu4easy-mode)
-;;   :custom
-;;   (mu4easy-contexts '((mu4easy-context
-;;                        :c-name  "Mail"
-;;                        :maildir (expand-file-name "~/mail")
-;;                        :mail    "kyle@ambroffkao.com"
-;;                        :smtp    "smtp.gmail.com"
-;;                        :sent-action 'sent))))
+;;   :config
+;;   (marginalia-mode))
+
+;; (use-package embark
+;;   :ensure t
+
+;;   :bind
+;;   (("C-." . embark-act)         ;; pick some comfortable binding
+;;    ("C-;" . embark-dwim))       ;; good alternative: M-.
+
+;;   :init
+
+;;   ;; Optionally replace the key help with a completing-read interface
+;;   (setq prefix-help-command #'embark-prefix-help-command)
+
+;;   ;; Show the Embark target at point via Eldoc. You may adjust the
+;;   ;; Eldoc strategy, if you want to see the documentation from
+;;   ;; multiple providers. Beware that using this can be a little
+;;   ;; jarring since the message shown in the minibuffer can be more
+;;   ;; than one line, causing the modeline to move up and down:
+
+;;   ;; (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
+;;   ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
+
+;;   :config
+
+;;   ;; Hide the mode line of the Embark live/completions buffers
+;;   (add-to-list 'display-buffer-alist
+;;                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+;;                  nil
+;;                  (window-parameters (mode-line-format . none)))))
+
+;; ;; Consult users will also want the embark-consult package.
+;; (use-package embark-consult
+;;   :ensure t ; only need to install it, embark loads it after consult if found
+;;   :hook
+;;   (embark-collect-mode . consult-preview-at-point-mode))
+
