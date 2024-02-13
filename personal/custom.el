@@ -15,7 +15,7 @@
  '(nrepl-message-colors
    '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(package-selected-packages
-   '(nix-mode reformatter org-roam treemacs-magit treemacs-icons-dired treemacs-projectile treemacs gradle-mode json-mode dockerfile-mode scala-mode afternoon-theme csv-mode smart-tabs-mode lsp-treemacs lsp-python-ms yasnippet-lean yaml-mode use-package lsp-ui yasnippet company-lsp lsp-mode cmake-mode exec-path-from-shell zop-to-char zenburn-theme which-key volatile-highlights undo-tree super-save smartrep smartparens operate-on-number move-text magit projectile imenu-anywhere hl-todo guru-mode gitignore-mode gitconfig-mode git-timemachine gist flycheck expand-region epl editorconfig easy-kill diminish diff-hl discover-my-major crux browse-kill-ring beacon anzu ace-window cmake-mode groovy-mode))
+   '(jsonrpc json-rpc embark-consult embark marginalia lsp-java flatbuffers-mode org-bullets nix-mode reformatter org-roam treemacs-magit treemacs-icons-dired treemacs-projectile treemacs gradle-mode json-mode dockerfile-mode scala-mode afternoon-theme csv-mode smart-tabs-mode lsp-treemacs lsp-python-ms yasnippet-lean yaml-mode use-package lsp-ui yasnippet company-lsp lsp-mode cmake-mode exec-path-from-shell zop-to-char zenburn-theme which-key volatile-highlights undo-tree super-save smartrep smartparens operate-on-number move-text magit projectile imenu-anywhere hl-todo guru-mode gitignore-mode gitconfig-mode git-timemachine gist flycheck expand-region epl editorconfig easy-kill diminish diff-hl discover-my-major crux browse-kill-ring beacon anzu ace-window cmake-mode groovy-mode))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(prelude-whitespace nil)
  '(vc-annotate-background "#2B2B2B")
@@ -48,8 +48,8 @@
  '(region ((t (:background "blue" :foreground "white")))))
 
 ;; Required for Emacs < 29.x, otherwise treemacs breaks with something about invalid image type svg
-(unless (member 'svg image-types)
-  (add-to-list 'image-types 'svg))
+(unless (and (not (eq (boundp 'image-types) nil)) (member 'svg image-types)
+             (add-to-list 'image-types 'svg)))
 
 ;; Make it easier to change the size of a frame.
 ;; See https://www.emacswiki.org/emacs/WindowResize
@@ -82,6 +82,17 @@
     (unless (package-installed-p 'bind-key)
       (package-install 'bind-key))))
 
+;; Install meson-mode
+(use-package meson-mode
+  :ensure t)
+
+(cond
+ ((eq system-type 'berkeley-unix)
+  (setq lsp-clients-clangd-executable "clangd17"))
+ (t
+  (setq lsp-clients-clangd-executable "clangd")))
+
+
 ;; TODO: Use flymake-show-diagnostics-buffer
 ;; TODO: set up lsp-ivy for find symbol by name
 (use-package lsp-mode
@@ -108,7 +119,9 @@
 (ido-mode t)
 (show-paren-mode t)
 (setq global-hl-line-mode nil)
-(scroll-bar-mode -1)
+
+(if (not (eq nil (boundp 'scroll-bar-mode)))
+    (scroll-bar-mode -1))
 
 (use-package treemacs
   :ensure t
@@ -287,6 +300,22 @@
  (expand-file-name "~/code/linux")
  'linux-kernel)
 
+;; TODO: Figure out a way to invoke this function every time a C file is opened in /usr/src
+(defun bsd ()
+  (interactive)
+  (c-set-style "bsd")
+  (setq indent-tabs-mode t)
+  ;; Use C-c C-s at points of source code so see which
+  ;; c-set-offset is in effect for this situation
+  (c-set-offset 'defun-block-intro 8)
+  (c-set-offset 'statement-block-intro 8)
+  (c-set-offset 'statement-case-intro 8)
+  (c-set-offset 'substatement-open 4)
+  (c-set-offset 'substatement 8)
+  (c-set-offset 'arglist-cont-nonempty 4)
+  (c-set-offset 'inclass 8)
+  (c-set-offset 'knr-argdecl-intro 8))
+
 ;; TODO stuff for Northguard. Mainly I want to disable whitespace-mode
 ;; (dir-locals-set-directory-class
 ;;  (expand-file-name "~/code/cpp/Northguard")
@@ -323,8 +352,12 @@
 ;; also use visual-line-mode
 ;; also use org-indent-mode
 
+(add-hook 'org-mode (lambda ()
+                      (org-indent-mode t)
+                      (visual-line-mode t)))
 
-(add-hook 'org-mode (lambda () (org-indent-mode t)))
+(add-hook 'text-mode 'abbrev-mode)
+(add-hook 'prog-mode 'abbrev-mode)
 
 ;; TODO: When editing .org or .md files, disable whitespace-mode, enable visual-line-mode
 ;; TODO: Tell whitespace-mode to enforce line length depending on which project I'm working on. 120 for work. 80 for Haiku, etc.
@@ -352,3 +385,81 @@
 
 (use-package lsp-java
   :ensure t)
+
+;;
+;; Email setup
+;;
+
+;; Generated index like
+;; mu init --maildir=$HOME/mail --my-address=kyle@ambroffkao.com --my-address=kyle@ambroff.com --my-address=family@ambroffkao.com --my-address=kyle@buttmail.me --my-address=kyle@2e.rip --my-address=ambroff@fastmail.com --my-address=kyle@segv.zip --my-address=kyle@wrk
+(cond
+ ((eq system-type 'berkeley-unix)
+  (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e"))
+
+ ((eq system-type 'gnu/linux)
+  (add-to-list 'load-path "/usr/share/emacs/site-lisp/elpa-src/mu4e-1.8.14"))
+
+ (t
+  (message "Need to install mu4e on this platform")))
+(setq mu4e-get-mail-command "mbsync -a")
+(require 'mu4e)
+(setq mu4e-change-filenames-when-moving t)
+(setq mu4e-sent-folder "/Sent")
+(setq mu4e-refile-folder "/Archive")
+(setq mu4e-trash-folder "/Trash")
+(setq mu4e-drafts-folder "/Drafts")
+
+;; Use copilot if it is available in the vendor directory
+(let ((copilot-code-dir (concat (file-name-as-directory prelude-vendor-dir) "copilot.el")))
+  (if (file-directory-p copilot-code-dir)
+      (progn
+        (add-to-list 'load-path copilot-code-dir)
+        (require 'copilot)
+        (add-hook 'prog-mode 'copilot-mode)
+        (add-to-list 'copilot-major-mode-alist '("c-mode" . "c++-mode"))
+        (define-key copilot-completion-map (kbd "M-RET") 'copilot-accept-completion))))
+
+;;
+;; Some kinda incomplete notes about marginalia and embark setup. Stephan suggested this but I'm not sure I want to use it yet
+;;
+
+;; (use-package marginalia
+;;   :ensure t
+;;   :config
+;;   (marginalia-mode))
+
+;; (use-package embark
+;;   :ensure t
+
+;;   :bind
+;;   (("C-." . embark-act)         ;; pick some comfortable binding
+;;    ("C-;" . embark-dwim))       ;; good alternative: M-.
+
+;;   :init
+
+;;   ;; Optionally replace the key help with a completing-read interface
+;;   (setq prefix-help-command #'embark-prefix-help-command)
+
+;;   ;; Show the Embark target at point via Eldoc. You may adjust the
+;;   ;; Eldoc strategy, if you want to see the documentation from
+;;   ;; multiple providers. Beware that using this can be a little
+;;   ;; jarring since the message shown in the minibuffer can be more
+;;   ;; than one line, causing the modeline to move up and down:
+
+;;   ;; (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
+;;   ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
+
+;;   :config
+
+;;   ;; Hide the mode line of the Embark live/completions buffers
+;;   (add-to-list 'display-buffer-alist
+;;                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+;;                  nil
+;;                  (window-parameters (mode-line-format . none)))))
+
+;; ;; Consult users will also want the embark-consult package.
+;; (use-package embark-consult
+;;   :ensure t ; only need to install it, embark loads it after consult if found
+;;   :hook
+;;   (embark-collect-mode . consult-preview-at-point-mode))
+
