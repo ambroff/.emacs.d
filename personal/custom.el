@@ -469,3 +469,12 @@
 ;;   :hook
 ;;   (embark-collect-mode . consult-preview-at-point-mode))
 
+;; Shell configuration
+(use-package vterm
+  :ensure t)
+(dolist (mode '(term-mode-hook
+                vterm-mode-hook
+                shell-mode-hook
+                treemacs-mode-hook
+                eshell-mode-hook))
+  (add-hook mode (lambda() (display-line-numbers-mode 0))))
