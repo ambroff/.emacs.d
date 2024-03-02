@@ -408,6 +408,9 @@
 (setq mu4e-refile-folder "/Archive")
 (setq mu4e-trash-folder "/Trash")
 (setq mu4e-drafts-folder "/Drafts")
+(fset 'my-move-to-trash "mTrash")
+(define-key mu4e-headers-mode-map (kbd "d") 'my-move-to-trash)
+(define-key mu4e-view-mode-map (kbd "d") 'my-move-to-trash)
 
 ;; Use copilot if it is available in the vendor directory
 (let ((copilot-code-dir (concat (file-name-as-directory prelude-vendor-dir) "copilot.el")))
