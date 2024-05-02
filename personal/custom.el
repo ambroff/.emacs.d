@@ -92,6 +92,8 @@
  (t
   (setq lsp-clients-clangd-executable "clangd")))
 
+(use-package rust-mode
+  :ensure t)
 
 ;; TODO: Use flymake-show-diagnostics-buffer
 ;; TODO: set up lsp-ivy for find symbol by name
@@ -102,6 +104,7 @@
   :hook (c-mode . lsp)
   :hook (python-mode . lsp)
   :hook (java-mode . lsp)
+  :hook (rust-mode . lsp)
   :bind (("C-q" . lsp-ui-peek-find-definitions)
          ("M-\\" . lsp-find-references)
          ("M-." . lsp-find-definition))
