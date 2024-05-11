@@ -328,8 +328,6 @@
   :ensure t
   :init
   (setq org-roam-v2-ack t)
-  (visual-line-mode t)
-  (org-indent-mode t)
   :custom
   (org-roam-directory "~/Notes")
   (org-roam-completion-everywhere t)
@@ -351,12 +349,14 @@
 ;; (use-package org-bullets
 ;;   :hook (org-mode . org-bullets-mode))
 (use-package org-bullets
-  :ensure t)
+  :ensure t
+  :hook (org-mode . org-bullets-mode))
 ;; also use visual-line-mode
 ;; also use org-indent-mode
 
-(add-hook 'org-mode (lambda ()
+(add-hook 'org-mode-hook (lambda ()
                       (org-indent-mode t)
+                      (org-bullets-mode t)
                       (visual-line-mode t)))
 
 (add-hook 'text-mode 'abbrev-mode)
