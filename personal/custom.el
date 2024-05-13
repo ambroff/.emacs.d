@@ -395,25 +395,31 @@
 
 ;; Generated index like
 ;; mu init --maildir=$HOME/mail --my-address=kyle@ambroffkao.com --my-address=kyle@ambroff.com --my-address=family@ambroffkao.com --my-address=kyle@buttmail.me --my-address=kyle@2e.rip --my-address=ambroff@fastmail.com --my-address=kyle@segv.zip --my-address=kyle@wrk
+(defun init-mu4e ()
+  (setq mu4e-get-mail-command "mbsync -a")
+  (require 'mu4e)
+  (setq mu4e-change-filenames-when-moving t)
+  (setq mu4e-sent-folder "/Sent")
+  (setq mu4e-refile-folder "/Archive")
+  (setq mu4e-trash-folder "/Trash")
+  (setq mu4e-drafts-folder "/Drafts")
+  (fset 'my-move-to-trash "mTrash")
+  (define-key mu4e-headers-mode-map (kbd "d") 'my-move-to-trash)
+  (define-key mu4e-view-mode-map (kbd "d") 'my-move-to-trash))
+
 (cond
+ ((eq system-type 'darwin)
+  (message "Not using mu4e on my work computer"))
  ((eq system-type 'berkeley-unix)
-  (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e"))
-
+  (progn
+    (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
+    (init-mu4e)))
  ((eq system-type 'gnu/linux)
-  (add-to-list 'load-path "/usr/share/emacs/site-lisp/elpa-src/mu4e-1.8.14"))
-
+  (progn
+    (add-to-list 'load-path "/usr/share/emacs/site-lisp/elpa-src/mu4e-1.8.14")
+    (init-mu4e)))
  (t
   (message "Need to install mu4e on this platform")))
-(setq mu4e-get-mail-command "mbsync -a")
-(require 'mu4e)
-(setq mu4e-change-filenames-when-moving t)
-(setq mu4e-sent-folder "/Sent")
-(setq mu4e-refile-folder "/Archive")
-(setq mu4e-trash-folder "/Trash")
-(setq mu4e-drafts-folder "/Drafts")
-(fset 'my-move-to-trash "mTrash")
-(define-key mu4e-headers-mode-map (kbd "d") 'my-move-to-trash)
-(define-key mu4e-view-mode-map (kbd "d") 'my-move-to-trash)
 
 ;; Use copilot if it is available in the vendor directory
 (let ((copilot-code-dir (concat (file-name-as-directory prelude-vendor-dir) "copilot.el")))
