@@ -426,9 +426,10 @@
     (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
     (init-mu4e)))
  ((eq system-type 'gnu/linux)
-  (progn
-    (add-to-list 'load-path "/usr/share/emacs/site-lisp/elpa-src/mu4e-1.8.14")
-    (init-mu4e)))
+  (if (file-directory-p "/usr/share/emacs/site-lisp/elpa-src/mu4e-1.8.14")
+      (progn
+        (add-to-list 'load-path "/usr/share/emacs/site-lisp/elpa-src/mu4e-1.8.14")
+        (init-mu4e)))
  (t
   (message "Need to install mu4e on this platform")))
 
