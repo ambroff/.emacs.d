@@ -14,8 +14,14 @@
  '(ispell-dictionary nil)
  '(nrepl-message-colors
    '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
+ '(org-babel-load-languages
+   '((emacs-lisp . t)
+     (awk . t)
+     (shell . t)
+     (python . t)
+     (scheme . t)))
  '(package-selected-packages
-   '(gnu-elpa-keyring-update vterm ac-etags meson-mode jsonrpc json-rpc embark-consult embark marginalia lsp-java flatbuffers-mode org-bullets nix-mode reformatter org-roam treemacs-magit treemacs-icons-dired treemacs-projectile treemacs gradle-mode json-mode dockerfile-mode scala-mode afternoon-theme csv-mode smart-tabs-mode lsp-treemacs lsp-python-ms yasnippet-lean yaml-mode use-package lsp-ui yasnippet company-lsp lsp-mode cmake-mode exec-path-from-shell zop-to-char zenburn-theme which-key volatile-highlights undo-tree super-save smartrep smartparens operate-on-number move-text magit projectile imenu-anywhere hl-todo guru-mode gitignore-mode gitconfig-mode git-timemachine gist flycheck expand-region epl editorconfig easy-kill diminish diff-hl discover-my-major crux browse-kill-ring beacon anzu ace-window cmake-mode groovy-mode))
+   '(geiser-guile rust-mode vterm ac-etags meson-mode jsonrpc json-rpc embark-consult embark marginalia lsp-java flatbuffers-mode org-bullets nix-mode reformatter org-roam treemacs-magit treemacs-icons-dired treemacs-projectile treemacs gradle-mode json-mode dockerfile-mode scala-mode afternoon-theme csv-mode smart-tabs-mode lsp-treemacs lsp-python-ms yasnippet-lean yaml-mode use-package lsp-ui yasnippet company-lsp lsp-mode cmake-mode exec-path-from-shell zop-to-char zenburn-theme which-key volatile-highlights undo-tree super-save smartrep smartparens operate-on-number move-text magit projectile imenu-anywhere hl-todo guru-mode gitignore-mode gitconfig-mode git-timemachine gist flycheck expand-region epl editorconfig easy-kill diminish diff-hl discover-my-major crux browse-kill-ring beacon anzu ace-window cmake-mode groovy-mode))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(prelude-whitespace nil)
  '(vc-annotate-background "#2B2B2B")
@@ -38,18 +44,7 @@
      (320 . "#8CD0D3")
      (340 . "#94BFF3")
      (360 . "#DC8CC3")))
- '(vc-annotate-very-old-color "#DC8CC3")
- '(warning-suppress-types
-   '(((copilot copilot-no-mode-indent))
-     ((copilot copilot-no-mode-indent))
-     ((copilot copilot-no-mode-indent))
-     ((copilot copilot-no-mode-indent))
-     ((copilot copilot-no-mode-indent))
-     ((copilot copilot-no-mode-indent))
-     ((copilot copilot-no-mode-indent))
-     ((copilot copilot-no-mode-indent))
-     ((copilot copilot-no-mode-indent))
-     ((copilot copilot-no-mode-indent)))))
+ '(vc-annotate-very-old-color "#DC8CC3"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -499,3 +494,6 @@
 
 ;; Tramp config
 (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+
+(use-package geiser-guile
+  :ensure t)
