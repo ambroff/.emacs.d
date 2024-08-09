@@ -534,5 +534,23 @@
 ;; Tramp config
 (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
 
-(use-package geiser-guile
-  :ensure t)
+;; https://guix.gnu.org/manual/en/html_node/The-Perfect-Setup.html
+(let ((guix-repo-dir (file-name-as-directory "~/code/guix/guix")))
+  (if (file-directory-p guix-repo-dir)
+	  (progn
+		(use-package geiser-guile
+		  :ensure t)
+		(with-eval-after-load 'geiser-guile
+		  (add-to-list 'geiser-guile-load-path guix-repo-dir))
+		(with-eval-after-load 'yasnippet
+		  (add-to-list 'yas-snippet-dirs (concat guix-repo-dir "etc/snippets/yas")))
+		(with-eval-after-load 'tempel
+		  ;; Ensure tempel-path is a list -- it may also be a string.
+		  (unless (listp 'tempel-path)
+			(setq tempel-path (list tempel-path)))
+		  (add-to-list 'tempel-path (concat guix-repo-dir "etc/snippets/tempel/*")))
+		(setq user-full-name "Kyle Ambroff-Kao")
+		(setq user-mail-address "kyle@ambroffkao.com")
+		(load-file (concat guix-repo-dir "etc/copyright.el"))
+		(setq copyright-names-regexp
+			  (format "%s <%s>" user-full-name user-mail-address)))))
