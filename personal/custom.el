@@ -12,6 +12,7 @@
    '("2540689fd0bc5d74c4682764ff6c94057ba8061a98be5dd21116bf7bf301acfb" default))
  '(fci-rule-color "#383838")
  '(ispell-dictionary nil)
+ '(mu4e-split-view 'vertical)
  '(nrepl-message-colors
    '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(org-babel-load-languages
