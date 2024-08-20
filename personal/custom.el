@@ -22,9 +22,10 @@
      (python . t)
      (scheme . t)))
  '(package-selected-packages
-   '(geiser-guile rust-mode vterm ac-etags meson-mode jsonrpc json-rpc embark-consult embark marginalia lsp-java flatbuffers-mode org-bullets nix-mode reformatter org-roam treemacs-magit treemacs-icons-dired treemacs-projectile treemacs gradle-mode json-mode dockerfile-mode scala-mode afternoon-theme csv-mode smart-tabs-mode lsp-treemacs lsp-python-ms yasnippet-lean yaml-mode use-package lsp-ui yasnippet company-lsp lsp-mode cmake-mode exec-path-from-shell zop-to-char zenburn-theme which-key volatile-highlights undo-tree super-save smartrep smartparens operate-on-number move-text magit projectile imenu-anywhere hl-todo guru-mode gitignore-mode gitconfig-mode git-timemachine gist flycheck expand-region epl editorconfig easy-kill diminish diff-hl discover-my-major crux browse-kill-ring beacon anzu ace-window cmake-mode groovy-mode))
+   '(protobuf-mode geiser-guile rust-mode vterm ac-etags meson-mode jsonrpc json-rpc embark-consult embark marginalia lsp-java flatbuffers-mode org-bullets nix-mode reformatter org-roam treemacs-magit treemacs-icons-dired treemacs-projectile treemacs gradle-mode json-mode dockerfile-mode scala-mode afternoon-theme csv-mode smart-tabs-mode lsp-treemacs lsp-python-ms yasnippet-lean yaml-mode use-package lsp-ui yasnippet company-lsp lsp-mode cmake-mode exec-path-from-shell zop-to-char zenburn-theme which-key volatile-highlights undo-tree super-save smartrep smartparens operate-on-number move-text magit projectile imenu-anywhere hl-todo guru-mode gitignore-mode gitconfig-mode git-timemachine gist flycheck expand-region epl editorconfig easy-kill diminish diff-hl discover-my-major crux browse-kill-ring beacon anzu ace-window cmake-mode groovy-mode))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(prelude-whitespace nil)
+ '(projectile-use-git-grep t)
  '(safe-local-variable-values
    '((eval progn
            (require 'lisp-mode)
