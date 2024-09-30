@@ -370,6 +370,8 @@
 ;;  (expand-file-name "~/code/cpp/Northguard")
 ;;  'northguard)
 
+(setq read-process-output-max (* 8 (* 1024 1024))) ;; 8MiB
+
 (use-package org-roam
   :ensure t
   :init
