@@ -457,9 +457,12 @@
  ((eq system-type 'darwin)
   (message "Not using mu4e on my work computer"))
  ((eq system-type 'berkeley-unix)
-  (progn
-    (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
-    (init-mu4e)))
+  (let ((os-name (shell-command-to-string "uname")))
+    (if (string-match "NetBDS" os-name)
+        (message "No mu4e yet on NetBSD")
+      (progn
+        (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
+        (init-mu4e)))))
  ((eq system-type 'gnu/linux)
   (if (file-directory-p "/usr/share/emacs/site-lisp/elpa-src/mu4e-1.8.14")
       (progn
