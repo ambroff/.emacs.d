@@ -5,6 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#3F3F3F" "#CC9393" "#7F9F7F" "#F0DFAF" "#8CD0D3" "#DC8CC3" "#93E0E3" "#DCDCCC"])
+ '(auth-source-save-behavior nil)
  '(company-quickhelp-color-background "#4F4F4F")
  '(company-quickhelp-color-foreground "#DCDCCC")
  '(custom-enabled-themes '(manoj-dark))
