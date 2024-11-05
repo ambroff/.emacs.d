@@ -135,7 +135,7 @@
 
 (cond
  ((eq system-type 'berkeley-unix)
-  (setq lsp-clients-clangd-executable "clangd17"))
+  (setq lsp-clients-clangd-executable "clangd19"))
  (t
   (setq lsp-clients-clangd-executable "clangd")))
 
