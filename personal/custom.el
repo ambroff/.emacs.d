@@ -98,6 +98,25 @@
 (unless (and (not (eq (boundp 'image-types) nil)) (member 'svg image-types)
              (add-to-list 'image-types 'svg)))
 
+;;
+;; Use different fonts
+;;
+;; You will most likely need to adjust this font size for your system!
+(defvar efs/default-font-size 120)
+(defvar efs/default-variable-font-size 120)
+
+;; Make frame transparency overridable
+(defvar efs/frame-transparency '(90 . 90))
+
+(set-face-attribute 'default nil :font "Fira Code Retina" :height efs/default-font-size)
+
+;; Set the fixed pitch face
+(set-face-attribute 'fixed-pitch nil :font "Fira Code Retina" :height efs/default-font-size)
+
+;; Set the variable pitch face
+(set-face-attribute 'variable-pitch nil :font "Cantarell" :height efs/default-variable-font-size :weight 'regular)
+
+
 ;; Make it easier to change the size of a frame.
 ;; See https://www.emacswiki.org/emacs/WindowResize
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
