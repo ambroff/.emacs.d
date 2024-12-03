@@ -599,3 +599,6 @@
 
 (use-package ninja-mode
   :ensure t)
+
+(use-package cmake-mode
+  :ensure t)
