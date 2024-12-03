@@ -596,3 +596,6 @@
   ;; See command `lsp-sonarlint-available-analyzers' for the full list.
   (lsp-sonarlint-enabled-analyzers '("java" "cfamily" "python" "text"))
   :ensure t)
+
+(use-package ninja-mode
+  :ensure t)
