@@ -98,34 +98,38 @@
 (unless (and (not (eq (boundp 'image-types) nil)) (member 'svg image-types)
              (add-to-list 'image-types 'svg)))
 
-;;
-;; Use different fonts
-;;
-;; You will most likely need to adjust this font size for your system!
-(defvar efs/default-font-size 120)
-(defvar efs/default-variable-font-size 120)
-
-;; Make frame transparency overridable
-(defvar efs/frame-transparency '(90 . 90))
-
-(set-face-attribute 'default nil :font "Fira Code Retina" :height efs/default-font-size)
-
-;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "Fira Code Retina" :height efs/default-font-size)
-
-;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "Cantarell" :height efs/default-variable-font-size :weight 'regular)
+;; On Haiku and Haven, I change the default keymap so command is super alt is alt.
+(if (or (eq system-type 'haiku) (eq system-type 'haven))
+    (progn (setq haiku-meta-keysym 'option)
+           (setq haiku-super-keysym 'command)))
 
 
-;; Make it easier to change the size of a frame.
-;; See https://www.emacswiki.org/emacs/WindowResize
-(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "S-C-<down>") 'shrink-window)
-(global-set-key (kbd "S-C-<up>") 'enlarge-window)
+(if (not (or (eq system-type 'haiku) (eq system-type 'haven)))
+    (progn
+      ;;
+      ;; Use different fonts
+      ;;
+      ;; You will most likely need to adjust this font size for your system!
+      (defvar efs/default-font-size 120)
+      (defvar efs/default-variable-font-size 120)
 
-;; (add-to-list 'default-frame-alist '(font . "jetbrains-mono"))
-;; (set-face-attribute 'default t :font "jetbrains-mono")
+      ;; Make frame transparency overridable
+      (defvar efs/frame-transparency '(90 . 90))
+
+      (set-face-attribute 'default nil :font "Fira Code Retina" :height efs/default-font-size)
+
+      ;; Set the fixed pitch face
+      (set-face-attribute 'fixed-pitch nil :font "Fira Code Retina" :height efs/default-font-size)
+
+      ;; Set the variable pitch face
+      (set-face-attribute 'variable-pitch nil :font "Cantarell" :height efs/default-variable-font-size :weight 'regular)
+
+      ;; Make it easier to change the size of a frame.
+      ;; See https://www.emacswiki.org/emacs/WindowResize
+      (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
+      (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+      (global-set-key (kbd "S-C-<down>") 'shrink-window)
+      (global-set-key (kbd "S-C-<up>") 'enlarge-window)))
 
 (set-variable 'projectile-globally-ignored-directories '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" ".clangd"))
 
