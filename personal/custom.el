@@ -602,3 +602,12 @@
 
 (use-package cmake-mode
   :ensure t)
+
+;; Override some projectile keybindings.
+;;
+;; I added this after https://github.com/bbatsov/projectile/commit/dd1a8e224dc77 was
+;; pulled into my config, because I kinda hate the C-c p c c binding. The comment says
+;; he will remove the other bindings like P and C later so I'll have to do the same
+;; for those.
+(with-eval-after-load 'projectile
+  (define-key projectile-command-map (kbd "c") #'projectile-compile-project))
