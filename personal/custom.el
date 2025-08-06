@@ -4,51 +4,69 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
-   ["#3F3F3F" "#CC9393" "#7F9F7F" "#F0DFAF" "#8CD0D3" "#DC8CC3" "#93E0E3" "#DCDCCC"])
+   ["#3F3F3F" "#CC9393" "#7F9F7F" "#F0DFAF" "#8CD0D3" "#DC8CC3" "#93E0E3"
+    "#DCDCCC"])
  '(auth-source-save-behavior nil)
  '(company-quickhelp-color-background "#4F4F4F")
  '(company-quickhelp-color-foreground "#DCDCCC")
  '(custom-enabled-themes '(manoj-dark))
  '(custom-safe-themes
-   '("2540689fd0bc5d74c4682764ff6c94057ba8061a98be5dd21116bf7bf301acfb" default))
+   '("2540689fd0bc5d74c4682764ff6c94057ba8061a98be5dd21116bf7bf301acfb"
+     default))
  '(fci-rule-color "#383838")
  '(ispell-dictionary nil)
+ '(lsp-completion-enable-additional-text-edit nil)
  '(mu4e-split-view 'vertical)
  '(nrepl-message-colors
-   '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
+   '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3"
+     "#94BFF3" "#DC8CC3"))
  '(org-babel-load-languages
-   '((emacs-lisp . t)
-     (awk . t)
-     (shell . t)
-     (python . t)
-     (scheme . t)))
+   '((emacs-lisp . t) (awk . t) (shell . t) (python . t) (scheme . t)))
  '(package-selected-packages
-   '(ninja-mode lsp-sonarlint protobuf-mode geiser-guile rust-mode vterm ac-etags meson-mode jsonrpc json-rpc embark-consult embark marginalia lsp-java flatbuffers-mode org-bullets nix-mode reformatter org-roam treemacs-magit treemacs-icons-dired treemacs-projectile treemacs gradle-mode json-mode dockerfile-mode scala-mode afternoon-theme csv-mode smart-tabs-mode lsp-treemacs lsp-python-ms yasnippet-lean yaml-mode use-package lsp-ui yasnippet company-lsp lsp-mode cmake-mode exec-path-from-shell zop-to-char zenburn-theme which-key volatile-highlights undo-tree super-save smartrep smartparens operate-on-number move-text magit projectile imenu-anywhere hl-todo guru-mode gitignore-mode gitconfig-mode git-timemachine gist flycheck expand-region epl editorconfig easy-kill diminish diff-hl discover-my-major crux browse-kill-ring beacon anzu ace-window cmake-mode groovy-mode))
+   '(ac-etags ace-window afternoon-theme anzu bazel beacon
+              browse-kill-ring cmake-mode cmake-mode company-lsp crux
+              csv-mode debbugs diff-hl diminish discover-my-major
+              dockerfile-mode easy-kill eat editorconfig embark
+              embark-consult epl exec-path-from-shell expand-region
+              flatbuffers-mode flycheck geiser-guile gist
+              git-timemachine gitconfig-mode gitignore-mode
+              gradle-mode groovy-mode guru-mode hl-todo imenu-anywhere
+              json-mode json-rpc jsonrpc lsp-java lsp-mode
+              lsp-python-ms lsp-sonarlint lsp-treemacs lsp-ui magit
+              marginalia meson-mode move-text ninja-mode nix-mode
+              operate-on-number org-bullets org-roam projectile
+              protobuf-mode reformatter rust-mode scala-mode
+              smart-tabs-mode smartparens smartrep super-save treemacs
+              treemacs-icons-dired treemacs-magit treemacs-projectile
+              undo-tree use-package volatile-highlights vterm
+              which-key yaml-mode yasnippet yasnippet-lean
+              zenburn-theme zop-to-char))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(prelude-whitespace nil)
  '(projectile-use-git-grep t)
  '(safe-local-variable-values
-   '((eval progn
-           (require 'lisp-mode)
-           (defun emacs27-lisp-fill-paragraph
-               (&optional justify)
+   '((eval progn (require 'lisp-mode)
+           (defun emacs27-lisp-fill-paragraph (&optional justify)
              (interactive "P")
-             (or
-              (fill-comment-paragraph justify)
-              (let
-                  ((paragraph-start
-                    (concat paragraph-start "\\|\\s-*\\([(;\"]\\|\\s-:\\|`(\\|#'(\\)"))
-                   (paragraph-separate
-                    (concat paragraph-separate "\\|\\s-*\".*[,\\.]$"))
-                   (fill-column
-                    (if
-                        (and
-                         (integerp emacs-lisp-docstring-fill-column)
-                         (derived-mode-p 'emacs-lisp-mode))
-                        emacs-lisp-docstring-fill-column fill-column)))
-                (fill-paragraph justify))
-              t))
-           (setq-local fill-paragraph-function #'emacs27-lisp-fill-paragraph))
+             (or (fill-comment-paragraph justify)
+                 (let
+                     ((paragraph-start
+                       (concat paragraph-start
+                               "\\|\\s-*\\([(;\"]\\|\\s-:\\|`(\\|#'(\\)"))
+                      (paragraph-separate
+                       (concat paragraph-separate
+                               "\\|\\s-*\".*[,\\.]$"))
+                      (fill-column
+                       (if
+                           (and
+                            (integerp emacs-lisp-docstring-fill-column)
+                            (derived-mode-p 'emacs-lisp-mode))
+                           emacs-lisp-docstring-fill-column
+                         fill-column)))
+                   (fill-paragraph justify))
+                 t))
+           (setq-local fill-paragraph-function
+                       #'emacs27-lisp-fill-paragraph))
      (eval modify-syntax-entry 43 "'")
      (eval modify-syntax-entry 36 "'")
      (eval modify-syntax-entry 126 "'")
@@ -57,9 +75,9 @@
            (let
                ((guix-yasnippets
                  (expand-file-name "etc/snippets/yas"
-                                   (locate-dominating-file default-directory ".dir-locals.el"))))
-             (unless
-                 (member guix-yasnippets yas-snippet-dirs)
+                                   (locate-dominating-file
+                                    default-directory ".dir-locals.el"))))
+             (unless (member guix-yasnippets yas-snippet-dirs)
                (add-to-list 'yas-snippet-dirs guix-yasnippets)
                (yas-reload-all))))
      (eval setq-local guix-directory
@@ -67,24 +85,12 @@
      (eval add-to-list 'completion-ignored-extensions ".go")))
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
-   '((20 . "#BC8383")
-     (40 . "#CC9393")
-     (60 . "#DFAF8F")
-     (80 . "#D0BF8F")
-     (100 . "#E0CF9F")
-     (120 . "#F0DFAF")
-     (140 . "#5F7F5F")
-     (160 . "#7F9F7F")
-     (180 . "#8FB28F")
-     (200 . "#9FC59F")
-     (220 . "#AFD8AF")
-     (240 . "#BFEBBF")
-     (260 . "#93E0E3")
-     (280 . "#6CA0A3")
-     (300 . "#7CB8BB")
-     (320 . "#8CD0D3")
-     (340 . "#94BFF3")
-     (360 . "#DC8CC3")))
+   '((20 . "#BC8383") (40 . "#CC9393") (60 . "#DFAF8F") (80 . "#D0BF8F")
+     (100 . "#E0CF9F") (120 . "#F0DFAF") (140 . "#5F7F5F")
+     (160 . "#7F9F7F") (180 . "#8FB28F") (200 . "#9FC59F")
+     (220 . "#AFD8AF") (240 . "#BFEBBF") (260 . "#93E0E3")
+     (280 . "#6CA0A3") (300 . "#7CB8BB") (320 . "#8CD0D3")
+     (340 . "#94BFF3") (360 . "#DC8CC3")))
  '(vc-annotate-very-old-color "#DC8CC3"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -156,11 +162,43 @@
 (use-package meson-mode
   :ensure t)
 
-(cond
- ((eq system-type 'berkeley-unix)
-  (setq lsp-clients-clangd-executable "clangd19"))
- (t
-  (setq lsp-clients-clangd-executable "clangd")))
+;; (cond
+;;  ((eq system-type 'berkeley-unix)
+;;   (setq lsp-clients-clangd-executable "clangd19"))
+;;  (t
+;;   (setq lsp-clients-clangd-executable "clangd")))
+(defun lsp-booster--advice-json-parse (old-fn &rest args)
+  "Try to parse bytecode instead of json."
+  (or
+   (when (equal (following-char) ?#)
+     (let ((bytecode (read (current-buffer))))
+       (when (byte-code-function-p bytecode)
+         (funcall bytecode))))
+   (apply old-fn args)))
+(advice-add (if (progn (require 'json)
+                       (fboundp 'json-parse-buffer))
+                'json-parse-buffer
+              'json-read)
+            :around
+            #'lsp-booster--advice-json-parse)
+
+(defun lsp-booster--advice-final-command (old-fn cmd &optional test?)
+  "Prepend emacs-lsp-booster command to lsp CMD."
+  (let ((orig-result (funcall old-fn cmd test?)))
+    (if (and (not test?)                             ;; for check lsp-server-present?
+             (not (file-remote-p default-directory)) ;; see lsp-resolve-final-command, it would add extra shell wrapper
+             lsp-use-plists
+             (not (functionp 'json-rpc-connection))  ;; native json-rpc
+             (executable-find "emacs-lsp-booster"))
+        (progn
+          (when-let ((command-from-exec-path (executable-find (car orig-result))))  ;; resolve command from exec-path (in case not found in $PATH)
+            (setcar orig-result command-from-exec-path))
+          (message "Using emacs-lsp-booster for %s!" orig-result)
+          (cons "emacs-lsp-booster" orig-result))
+      orig-result)))
+(advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
+(setq lsp-clients-clangd-executable "clangd")
+(setq lsp-clients-clangd-args '("-j=12" "-background-index" "-log=error"))
 
 (use-package rust-mode
   :ensure t)
@@ -178,9 +216,7 @@
   :bind (("C-q" . lsp-ui-peek-find-definitions)
          ("M-\\" . lsp-find-references)
          ("M-." . lsp-find-definition))
-  :commands lsp
-  :config
-  (setq lsp-clients-clangd-args '("-j=12" "-background-index" "-log=error")))
+  :commands lsp)
 
 (use-package lsp-ui
   :bind (("M-G" . lsp-ui-find-workspace-symbol)
@@ -408,7 +444,8 @@
          ("C-c n i" . org-roam-node-insert)
          :map org-mode-map
          ("C-M-i" . completion-at-point))
-  :config (org-roam-setup))
+  :config (org-roam-setup)
+          (setq org-roam-dailies-directory "journal/"))
 
 ;; Disable line numbers for some modes
 (dolist (mode '(org-mode-hook
@@ -495,9 +532,9 @@
         (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
         (init-mu4e)))))
  ((eq system-type 'gnu/linux)
-  (if (file-directory-p "/usr/share/emacs/site-lisp/elpa-src/mu4e-1.8.14")
+  (if (file-directory-p "/usr/share/emacs/site-lisp/elpa-src/mu4e-1.12.9")
       (progn
-        (add-to-list 'load-path "/usr/share/emacs/site-lisp/elpa-src/mu4e-1.8.14")
+        (add-to-list 'load-path "/usr/share/emacs/site-lisp/elpa-src/mu4e-1.12.9")
         (init-mu4e))))
  (t
   (message "Need to install mu4e on this platform")))
@@ -590,17 +627,17 @@
 		(setq copyright-names-regexp
 			  (format "%s <%s>" user-full-name user-mail-address)))))
 
-(use-package lsp-sonarlint
-  :custom
-  ;; Allow sonarlint to download and unzip the official VSCode extension
-  ;; If nil, you'll have to do that yourself. See also `lsp-sonarlint-download'
-  ;; `lsp-sonarlint-download-url' and `lsp-sonarlint-download-dir'
-  (lsp-sonarlint-auto-download t)
+;; (use-package lsp-sonarlint
+;;   :custom
+;;   ;; Allow sonarlint to download and unzip the official VSCode extension
+;;   ;; If nil, you'll have to do that yourself. See also `lsp-sonarlint-download'
+;;   ;; `lsp-sonarlint-download-url' and `lsp-sonarlint-download-dir'
+;;   (lsp-sonarlint-auto-download t)
 
-  ;; Choose which analyzers you want enabled. By default all are enabled
-  ;; See command `lsp-sonarlint-available-analyzers' for the full list.
-  (lsp-sonarlint-enabled-analyzers '("java" "cfamily" "python" "text"))
-  :ensure t)
+;;   ;; Choose which analyzers you want enabled. By default all are enabled
+;;   ;; See command `lsp-sonarlint-available-analyzers' for the full list.
+;;   (lsp-sonarlint-enabled-analyzers '("java" "cfamily" "python" "text"))
+;;   :ensure t)
 
 (use-package ninja-mode
   :ensure t)
@@ -616,3 +653,6 @@
 ;; for those.
 (with-eval-after-load 'projectile
   (define-key projectile-command-map (kbd "c") #'projectile-compile-project))
+
+(use-package bazel
+  :ensure t)
