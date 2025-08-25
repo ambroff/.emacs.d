@@ -24,23 +24,27 @@
    '((emacs-lisp . t) (awk . t) (shell . t) (python . t) (scheme . t)))
  '(package-selected-packages
    '(ac-etags ace-window afternoon-theme anzu bazel beacon
-              browse-kill-ring cmake-mode cmake-mode company-lsp crux
-              csv-mode debbugs diff-hl diminish discover-my-major
-              dockerfile-mode easy-kill eat editorconfig embark
-              embark-consult epl exec-path-from-shell expand-region
-              flatbuffers-mode flycheck geiser-guile gist
-              git-timemachine gitconfig-mode gitignore-mode
-              gradle-mode groovy-mode guru-mode hl-todo imenu-anywhere
-              json-mode json-rpc jsonrpc lsp-java lsp-mode
-              lsp-python-ms lsp-sonarlint lsp-treemacs lsp-ui magit
-              marginalia meson-mode move-text ninja-mode nix-mode
-              operate-on-number org-bullets org-roam projectile
-              protobuf-mode reformatter rust-mode scala-mode
-              smart-tabs-mode smartparens smartrep super-save treemacs
+              browse-kill-ring claude-code-ide cmake-mode cmake-mode
+              company-lsp crux csv-mode debbugs diff-hl diminish
+              discover-my-major dockerfile-mode easy-kill eat
+              editorconfig embark embark-consult epl
+              exec-path-from-shell expand-region flatbuffers-mode
+              flycheck geiser-guile gist git-timemachine
+              gitconfig-mode gitignore-mode gradle-mode groovy-mode
+              guru-mode hl-todo imenu-anywhere json-mode json-rpc
+              jsonrpc lsp-java lsp-mode lsp-python-ms lsp-sonarlint
+              lsp-treemacs lsp-ui magit marginalia meson-mode
+              move-text ninja-mode nix-mode operate-on-number
+              org-bullets org-roam projectile protobuf-mode
+              reformatter rust-mode scala-mode smart-tabs-mode
+              smartparens smartrep super-save treemacs
               treemacs-icons-dired treemacs-magit treemacs-projectile
               undo-tree use-package volatile-highlights vterm
               which-key yaml-mode yasnippet yasnippet-lean
               zenburn-theme zop-to-char))
+ '(package-vc-selected-packages
+   '((claude-code-ide :url
+                      "https://github.com/manzaltu/claude-code-ide.el")))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(prelude-whitespace nil)
  '(projectile-use-git-grep t)
@@ -654,5 +658,11 @@
 (with-eval-after-load 'projectile
   (define-key projectile-command-map (kbd "c") #'projectile-compile-project))
 
-(use-package bazel
-  :ensure t)
+;; (use-package bazel
+;;   :ensure t)
+
+(use-package claude-code-ide
+  :vc (:url "https://github.com/manzaltu/claude-code-ide.el" :rev :newest)
+  :bind ("C-c C-'" . claude-code-ide-menu) ; Set your favorite keybinding
+  :config
+  (claude-code-ide-emacs-tools-setup)) ; Optionally enable Emacs MCP tools
