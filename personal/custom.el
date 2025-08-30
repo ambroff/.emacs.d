@@ -508,6 +508,9 @@
 
 ;; Generated index like
 ;; mu init --maildir=$HOME/mail --my-address=kyle@ambroffkao.com --my-address=kyle@ambroff.com --my-address=family@ambroffkao.com --my-address=kyle@buttmail.me --my-address=kyle@2e.rip --my-address=ambroff@fastmail.com --my-address=kyle@segv.zip --my-address=kyle@wrk
+(use-package message-view-patch
+  :ensure t)
+
 (defun init-mu4e ()
   (setq mu4e-get-mail-command "mbsync -a")
   (require 'mu4e)
@@ -538,10 +541,14 @@
  ((eq system-type 'gnu/linux)
   (if (file-directory-p "/usr/share/emacs/site-lisp/elpa-src/mu4e-1.12.9")
       (progn
-        (add-to-list 'load-path "/usr/share/emacs/site-lisp/elpa-src/mu4e-1.12.9")
-        (init-mu4e))))
- (t
-  (message "Need to install mu4e on this platform")))
+        (add-to-list 'load-path "/usr/share/emacs/site-lisp/elpa-src/mu4e-1.12.9")     
+        (init-mu4e))
+    (if (file-directory-p "/usr/share/emacs/site-lisp/mu4e")
+        (progn
+          (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
+          (init-mu4e)))))
+  (t
+   (message "Need to install mu4e on this platform")))
 
 ;; Use copilot if it is available in the vendor directory
 (let ((copilot-code-dir (concat (file-name-as-directory prelude-vendor-dir) "copilot.el")))
